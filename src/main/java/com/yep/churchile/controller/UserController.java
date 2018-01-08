@@ -19,12 +19,12 @@ public class UserController {
 	
 	@ResponseBody
 	@RequestMapping("/getuser")
-	public ResultData<User> getUserByUserId(){
+	public ResultData<User> getUserById(){
 		try{
 			ResultData<User> user = userService.getUserById(614161258);
 			if(!user.isSuccessful()){
 				
-			}
+			} 
 			return user;
 		}catch(Exception e){
 			e.printStackTrace();
