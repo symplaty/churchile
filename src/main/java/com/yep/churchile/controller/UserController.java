@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yep.churchile.pojo.User;
+import com.yep.churchile.model.User;
 import com.yep.churchile.service.UserServiceInterface;
 import com.yep.churchile.utils.ResultData;
 

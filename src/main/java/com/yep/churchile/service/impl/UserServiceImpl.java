@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yep.churchile.dao.UserDao;
-import com.yep.churchile.pojo.User;
+import com.yep.churchile.model.User;
 import com.yep.churchile.service.UserServiceInterface;
 import com.yep.churchile.utils.ResultData;
 

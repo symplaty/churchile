@@ -2,7 +2,7 @@ package com.yep.churchile.dao;
 
 import org.springframework.stereotype.Repository;
 
-import com.yep.churchile.pojo.User;
+import com.yep.churchile.model.User;
 
 
 @Repository

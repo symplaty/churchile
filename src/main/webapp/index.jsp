@@ -53,8 +53,10 @@
 </head>
 
 <body>
-    whaat is going on
-    <button onclick="aa()">Test</button>
+    whaaaaaaaaaaaaaaaaaaaaaat is going on<br>
+    <button onclick="aa()">Test</button><br>
+    <a href="login.jsp">Sign in</a><br>
+    <a href="register.jsp">Sign up</a>
 </body>
 
 </html>

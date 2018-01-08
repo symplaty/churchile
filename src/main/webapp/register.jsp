@@ -15,7 +15,7 @@
 	pageContext.setAttribute("serverPath", serverPath);
 %>
 
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
 <meta charset="utf-8">
@@ -23,7 +23,7 @@
 <title>Sign up</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -60,13 +60,9 @@
 		</form>
    	</div>
 
-
-
-
-
    	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
