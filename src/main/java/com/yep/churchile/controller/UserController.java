@@ -22,9 +22,6 @@ public class UserController {
 	public ResultData<User> getUserByUserId(){
 		try{
 			ResultData<User> user = userService.getUserById(614161258);
-			
-			System.out.println(user);
-
 			if(!user.isSuccessful()){
 				
 			}
