@@ -36,7 +36,7 @@
     <!-- Custom styles -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet" />
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 --> 
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <script>
         window.Constants = {
