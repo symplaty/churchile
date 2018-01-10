@@ -8,8 +8,7 @@ public class User {
 	private String password;
 	private int type;
 	private int state;
-	
-	
+		
 	public int getId() {
 		return id;
 	}

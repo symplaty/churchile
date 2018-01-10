@@ -5,13 +5,13 @@ import java.io.Serializable;
 public class ResultData<T> implements Serializable {
 
     /**
-     * serialVersionUID:TODO ÇëÃèÊöÕâ¸ö±äÁ¿µÄº¬Òå¡£
+     * serialVersionUID:TODO è¯·æè¿°è¿™ä¸ªå˜é‡çš„å«ä¹‰ã€‚
      */
-    public final static ErrorMsg SUCCESS = new ErrorMsg("success", "²Ù×÷³É¹¦");
-    public final static ErrorMsg EXCEPTION = new ErrorMsg("exception", "ÏµÍ³Ã¦£¬ÇëÉÔºóÖØÊÔ");
-    public final static ErrorMsg REQUEST_FAILED = new ErrorMsg("request.failed", "ÍøÂçÇëÇóÒì³£");
-    public final static ErrorMsg ERROR_NO_DATA = new ErrorMsg("error.no.data", "ÎŞÊı¾İ");
-    public final static ErrorMsg ERROR_PARA_IS_NULL = new ErrorMsg("error.para.is.null", "ÇëÇó²ÎÊıPARA_NAMEÎ´Éè¶¨");
+    public final static ErrorMsg SUCCESS = new ErrorMsg("success", "æ“ä½œæˆåŠŸ");
+    public final static ErrorMsg EXCEPTION = new ErrorMsg("exception", "ç³»ç»Ÿå¿™ï¼Œè¯·ç¨åé‡è¯•");
+    public final static ErrorMsg REQUEST_FAILED = new ErrorMsg("request.failed", "ç½‘ç»œè¯·æ±‚å¼‚å¸¸");
+    public final static ErrorMsg ERROR_NO_DATA = new ErrorMsg("error.no.data", "æ— æ•°æ®");
+    public final static ErrorMsg ERROR_PARA_IS_NULL = new ErrorMsg("error.para.is.null", "è¯·æ±‚å‚æ•°PARA_NAMEæœªè®¾å®š");
     private static final long serialVersionUID = -532855965191069096L;
     private ErrorMsg errorMsg;
     private T data;

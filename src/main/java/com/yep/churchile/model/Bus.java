@@ -5,6 +5,7 @@ public class Bus {
 	private String plate;
 	private int type;
 	private int state;
+	
 	public int getId() {
 		return id;
 	}

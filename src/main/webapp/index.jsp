@@ -13,13 +13,15 @@
 	}
 	pageContext.setAttribute("basePath", basePath);
 	pageContext.setAttribute("serverPath", serverPath);
+
+
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 
 <head>
-    <title>Churchile - Home</title>
+    <title>主页 | Churchile - 车起来</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script type="text/javascript">
     window.Constants = {
@@ -30,12 +32,11 @@
     </script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <!-- 新 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    </script>
+    <%-- <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> --%>
     <script>
     function aa() {
         $.ajax({
@@ -49,11 +50,14 @@
             }
         });
     }
+        if ("${loginUser.id}" == "") {
+            window.location.href = Constants.serverPath + "login.jsp" + location.hash;
+        }
     </script>
 </head>
 
 <body>
-    whaaaaaaaaaaaaaaaaaaaaaat is going on<br>
+    whaaaaaaaaaaaaaaaaaaaaaat is going on啊<br>
     <button onclick="aa()">Test</button><br>
     <a href="login.jsp">Sign in</a><br>
     <a href="register.jsp">Sign up</a>
