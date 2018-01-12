@@ -9,6 +9,7 @@ public final class ConstantMsg {
     public final static ErrorMsg ERROR_PARAM = new ErrorMsg("error.param", "参数错误");
     public final static ErrorMsg ERROR_RESULT_NULL = new ErrorMsg("error.result.null", "结果为空");
     public final static ErrorMsg ERROR_USER_NOT_FOUND = new ErrorMsg("error.user.not.found", "未找到用户");
+    public final static ErrorMsg ERROR_TRAVEL_NOT_FOUND = new ErrorMsg("error.user.not.found", "未找到该行程车票");
 
 
 }

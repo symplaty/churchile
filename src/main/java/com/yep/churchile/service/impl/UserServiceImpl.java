@@ -1,5 +1,8 @@
 package com.yep.churchile.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +35,35 @@ public class UserServiceImpl implements UserServiceInterface {
 
 	public ResultData<User> getUserByPhoneAndPassword(String phone, String password) {
 		// TODO Auto-generated method stub
-		LOGGER.info("login info:{}", userDao.getUserByPhoneAndPassword(phone, password));
 		User user = userDao.getUserByPhoneAndPassword(phone, password);
 		if (user == null) {
 			return ResultData.error(ConstantMsg.ERROR_USER_NOT_FOUND);
 		}
 		return ResultData.ok(user);
+	}
+	
+	public ResultData<List<User>> getAllUser(){
+
+		List<User> userList = new ArrayList<User>();
+		userList = userDao.getAllUser();
+		if(userList.size() == 0){
+			return ResultData.error(ConstantMsg.ERROR_USER_NOT_FOUND);
+		}
+		return ResultData.ok(userList);
+	}
+
+	public ResultData<Integer> updateUser(User user) {
+
+		
+		return ResultData.ok(userDao.updateUser(user));
+	}
+	public ResultData<Integer> deleteUserById(Integer id) {
+
+		return ResultData.ok(userDao.deleteUserById(id));
+	}
+	public ResultData<Integer> addUser(User user) {
+
+		return ResultData.ok(userDao.addUser(user));
 	}
 
 }

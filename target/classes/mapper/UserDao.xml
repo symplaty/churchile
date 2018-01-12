@@ -6,13 +6,31 @@
 <mapper namespace="com.yep.churchile.dao.UserDao">
 	<select id="getUserById" parameterType="int"
 		resultType="com.yep.churchile.model.User">
-		select * from `user` where id = #{userId}
+		select * from `user` where id = #{id} and state = 1
 	</select>
 	<select id="getUserByPhoneAndPassword"
 		resultType="com.yep.churchile.model.User">
 		select * from `user` where phone = #{phone} and password = #{password} and state = 1
 	</select>
+	<select id="getAllUser" resultType="com.yep.churchile.model.User">
+		select * from user where state = 1 order by id desc;
+	</select>
+	
+	<update id="updateUser" >
+		update user 
+		set name = #{name},
+			idCard = #{idCard},
+			phone = #{phone},
+			password = #{password},
+			type = #{type}
+		where id = #{id};
+	</update>
+	
+	<update id="deleteUserById">
+		update user set state = 0 where id = #{id};
+	</update>
+	
 	<insert id="addUser">
-		INSERT INTO user (name, idCard, phone, password, type, state) VALUES (#{name}, #{idCard}, #{phone}, #{password}, #{type}, #{state})
+		INSERT INTO user (name, idCard, phone, password, type, state) VALUES (#{name}, #{idCard}, #{phone}, #{password}, #{type}, 1);
 	</insert>
 </mapper>

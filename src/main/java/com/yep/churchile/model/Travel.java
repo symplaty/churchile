@@ -11,6 +11,12 @@ public class Travel {
 	private String endTime;
 	private int state;
 	
+	private int ticketId;
+	private double price;
+	private String plate;
+	private String type;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -64,6 +70,48 @@ public class Travel {
 	}
 	public void setState(int state) {
 		this.state = state;
+	}
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public String getPlate() {
+		return plate;
+	}
+	public void setPlate(String plate) {
+		this.plate = plate;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public int getTicketId() {
+		return ticketId;
+	}
+	public void setTicketId(int ticketId) {
+		this.ticketId = ticketId;
+	}
+	
+	public Travel(){}
+	public Travel(int id, int busId, int volume, int volumeLeft, String start, String terminal, String startTime,
+			String endTime, int state, int ticketId, double price, String plate, String type) {
+		this.id = id;
+		this.busId = busId;
+		this.volume = volume;
+		this.volumeLeft = volumeLeft;
+		this.start = start;
+		this.terminal = terminal;
+		this.startTime = startTime;
+		this.endTime = endTime;
+		this.state = state;
+		this.ticketId = ticketId;
+		this.price = price;
+		this.plate = plate;
+		this.type = type;
 	}
 	
 	

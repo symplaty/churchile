@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yep.churchile.dao.TravelDao">
+	<select id="getTravelById" parameterType="int"
+		resultType="com.yep.churchile.model.Travel">
+		select *, 
+			ticket.price as price,
+			bus.plate as plate,
+			bus.type as type,
+			ticket.id as ticketId
+		from travel, ticket, bus 
+		where travel.id = #{id} and
+			  bus.id = ticket.busId and
+			  ticket.travelId = travel.id
+			  and travel.state = 1
+	</select>
+	
+	<select id="getAllTravel" 
+		resultType="com.yep.churchile.model.Travel">
+		select *, 
+			ticket.price as price,
+			bus.plate as plate,
+			bus.type as type,
+			ticket.id as ticketId
+		from travel, ticket, bus 
+		where  travel.state = 1
+			and bus.id = ticket.busId
+			and ticket.travelId = travel.id
+	</select>
+	
+	<select id="selectTicketByCity" resultType="com.yep.churchile.model.Travel">
+		select *,
+			ticket.price as price,
+			bus.plate as plate,
+			bus.type as type,
+			ticket.id as ticketId
+		from travel, ticket, bus
+		where  travel.state = 1
+			and bus.id = ticket.busId
+			and ticket.travelId = travel.id
+			and travel.start = #{start}
+			and travel.terminal = #{terminal}
+	</select>
+	
+	<update id="updateTicket" >
+		update ticket, travel
+		set ticket.price = #{price}, 
+			travel.start = #{start},
+			travel.terminal = #{terminal},
+			travel.startTime = #{startTime},
+			travel.endTime = #{endTime},
+			ticket.price = #{price},
+			travel.volume = #{volume},
+			travel.volumeLeft = #{volumeLeft}	
+		where travel.id = #{id} and
+			ticket.travelId = #{id}
+			and ticket.id = #{ticketID}
+			
+			
+	</update>
+	
+	
+	
+</mapper>

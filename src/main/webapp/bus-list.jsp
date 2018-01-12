@@ -49,6 +49,71 @@
       <script src="js/respond.min.js"></script>
       <script src="js/lte-ie7.js"></script>
     <![endif]-->
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script>
+        window.Constants = {
+            serverPath: "${serverPath}",
+            basePath: "${basePath}"
+        };
+    </script>
+    <script type="text/javascript">
+    	var busList;
+    	var index;
+    </script>
+    
+    <script type="text/javascript">
+    	$.ajax({
+    			url: Constants.serverPath + "bus/getallbus.do",
+                data: {
+                 		
+                },
+                async:false,
+                dataType: "json",
+                type: "POST",
+                success: function(resultData) {
+                    if (!resultData.successful) {
+                        var errorMsg = resultData.errorMsg;
+                        alert(errorMsg.message);
+                        
+                        return;
+                    }  
+                    console.log(resultData);
+                    busList = resultData.data;
+                    console.log(busList);
+                    console.log(busList[0]);     
+                },
+                error: function() {
+                   alert("get bus list error");
+                }		
+    	});
+    </script>
+    
+    <script type="text/javascript">
+    	$(document).ready(
+    		function(){
+    		var busType;
+            var volume;
+    		for(var i=1; i<=busList.length; i ++){
+	    		if(busList[i-1].type == 1){
+	            	busType = "小巴";
+	            	volume = 40;
+	            }else if(busList[i-1].type == 2){
+	            	busType = "中巴";
+	            	volume = 50;
+	            }else if(busList[i-1].type == 3){
+	            	busType = "大巴";
+	            	volume = 60;
+	            }
+	            
+    			$("#table-head").after("<tr><td>" + busList[i - 1].id + "</td><td>" + busList[i-1].plate + "</td><td>" + busType + "</td><td>" + volume +"</td><td><div class=\"btn-group\"><a id=\"" + (i-1) + "\" class=\"btn btn-primary edit\"><i class=\"icon_pencil-edit_alt\"></i></a><a id=\"" + (i - 1) + "\"class=\"btn btn-danger delete\"><i class=\"icon_close_alt2\"></i></a></div></td></tr>"
+
+    			);
+    			
+    			}
+    		}
+    	);
+    </script>
+    
 </head>
 
 <body>
@@ -56,6 +121,7 @@
     <section id="container" class="">
         <header class="header white-bg">
             <div class="toggle-nav">
+            
                 <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
             </div>
             <!--logo start-->
@@ -329,7 +395,9 @@
                         </a>
                         <ul class="sub">
                             <li><a class="active" href="bus-list.jsp">汽车列表</a></li>
+                            <li><a class="" href="add-bus.jsp">添加汽车</a></li>
                             <li><a class="" href="ticket-list.jsp"><span>车票列表</span></a></li>
+                            <li><a class="" href="add-ticket.jsp"><span>添加车票</span></a></li>
                         </ul>
                     </li>
                     <li class="sub-menu">
@@ -350,6 +418,7 @@
                         </a>
                         <ul class="sub">
                             <li><a class="" href="user-list.jsp">用户列表</a></li>
+                            <li><a class="" href="add-user.jsp">添加用户</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -369,61 +438,14 @@
                             </header>
                             <table class="table table-striped table-advance table-hover">
                                 <tbody>
-                                    <tr>
-                                    	<th><i class="icon_ol"></i>#</th>
-                                        <th><i class="icon_id_alt"></i>车牌</th>
+                                    <tr id="table-head">
+                                    	<th><i class="icon_ol"></i> #</th>
+                                        <th><i class="icon_id_alt"></i> 车牌</th>
                                         <th><i class="icon_toolbox"></i> 类型</th>
                                         <th><i class="icon_percent"></i> 载客量</th>
-                                        <th><i class="icon_cogs"></i> Action</th>
+                                        <th><i class="icon_cogs"></i> 操作</th>
                                     </tr>
-                                    <tr>
-                                    	<td>1</td>
-                                        <td>23123</td>
-                                        <td>small</td>
-                                        <td>60</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-primary edit"><i class="icon_pencil-edit_alt"></i></a>
-                                                <a class="btn btn-danger delete"><i class="icon_close_alt2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                    	<td>2</td>
-                                        <td>3452342</td>
-                                        <td>big</td>
-                                        <td>60</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-primary edit"><i class="icon_pencil-edit_alt"></i></a>
-                                                <a class="btn btn-danger delete"><i class="icon_close_alt2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                    	<td>3</td>
-                                        <td>G23233132</td>
-                                        <td>middle</td>
-                                        <td>60</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-primary edit"><i class="icon_pencil-edit_alt"></i></a>
-                                                <a class="btn btn-danger delete"><i class="icon_close_alt2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                    	<td>4</td>
-                                        <td>T34534534</td>
-                                        <td>small</td>
-                                        <td>60</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-primary edit"><i class="icon_pencil-edit_alt"></i></a>
-                                                <a class="btn btn-danger delete"><i class="icon_close_alt2"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <!--
                                     <tr>
                                     	<td>5</td>
                                         <td>S234234</td>
@@ -436,6 +458,8 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    -->
+                                    
                                 </tbody>
                             </table>
                         </section>
@@ -452,19 +476,24 @@
                             <div class="form-group">
                                 <label for="plate" class="col-sm-2 control-label">车牌</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="palte" placeholder="请输入车牌号码">
+                                    <input type="text" class="form-control" id="plate" placeholder="请输入车牌号码">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="type" class="col-sm-2 control-label">类型</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="type" placeholder="请输入汽车类型">
+                                    
+                                    <select id="type" class="form-control">
+                                    	<option value="1" >小巴</option>
+                                    	<option value="2" selected="selected">中巴</option>
+                                    	<option value="3">大巴</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-5 col-sm-10">
-                                    <button type="button" class="btn btn-primary" id="confirm">确认</button>
-                                    <button type="button" class="btn btn-default" id="cancel">取消</button>
+                                    <button type="button" class="btn btn-primary " id="confirm">确认</button>
+                                    <button type="button" class="btn btn-default " id="cancel">取消</button>
                                 </div>
                             </div>
                         </div>
@@ -481,7 +510,7 @@
                             <div class="form-group">
                                 <div class="col-sm-offset-5 col-sm-10">
                                     <button type="button" class="btn btn-default" id="confirm">确认</button>
-                                    <button  type="button" class="btn btn-primary" id="cancel">取消</button>
+                                    <button  type="button" class="btn btn-primary" id="cancel" >取消</button>
                                 </div>
                             </div>
                         </div>
@@ -552,14 +581,64 @@
     $(document).ready(function() {
         $(".edit").click(function() {
             document.getElementById('form-edit').style.display = 'block'
+            index = this.id;
+            $("#plate").val(busList[index].plate);
+            $("#type").val(busList[index].type);
         });
         $(".delete").click(function() {
             document.getElementById('form-delete').style.display = 'block'
+            index = this.id;
         });
         $("#form-edit #confirm").click(function() {
-            document.getElementById('form-edit').style.display = 'none'
+            $.ajax({
+    			url: Constants.serverPath + "bus/updatebus.do",
+                data: {
+                 	"id" : busList[index].id,
+                 	"plate" : $("#plate").val(),
+                 	"type" : $("#type").val(),
+
+                 	 	
+                },
+                async:false,
+                dataType: "json",
+                type: "POST",
+                success: function(resultData) {
+                    if (!resultData.successful) {
+                        var errorMsg = resultData.errorMsg;
+                        alert(errorMsg.message);
+                        
+                        return;
+                    }    
+                },
+                error: function() {
+                   alert("update bus error");
+                }
+            });
+            location.reload();
+            document.getElementById('form-edit').style.display = 'none'	
         });
         $("#form-delete #confirm").click(function() {
+        	  $.ajax({
+    			url: Constants.serverPath + "bus/deletebus.do",
+                data: {
+                 	"id" : busList[index].id        	 	
+                },
+                async:false,
+                dataType: "json",
+                type: "POST",
+                success: function(resultData) {
+                    if (!resultData.successful) {
+                        var errorMsg = resultData.errorMsg;
+                        alert(errorMsg.message);
+                        
+                        return;
+                    }      
+                },
+                error: function() {
+                   alert("delete bus error");
+                }
+            });
+            location.reload();
             document.getElementById('form-delete').style.display = 'none'
         });
         $("#form-edit #cancel").click(function() {

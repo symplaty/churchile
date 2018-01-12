@@ -8,6 +8,10 @@ public class Ticket {
 	private int status;
 	private int state;
 	
+	
+	
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -44,6 +48,7 @@ public class Ticket {
 	public void setState(int state) {
 		this.state = state;
 	}
+	
 	
 	
 }

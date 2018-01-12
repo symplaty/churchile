@@ -24,7 +24,7 @@
     <meta name="author" content="GeeksLabs">
     <meta name="keyword" content="Karmanta, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
     <link rel="shortcut icon" href="img/favicon.png">
-    <title>车票列表 | Churchile - 车起来后台管理</title>
+    <title>用户列表 | Churchile - 车起来后台管理</title>
     <!-- Bootstrap CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- bootstrap theme -->
@@ -56,63 +56,54 @@
             basePath: "${basePath}"
         };
     </script>
-      <script type="text/javascript">
-    	var travelList;
-    	var index;
+    <script type="text/javascript">
+    	var userList;
+    	var index
     </script>
     
     <script type="text/javascript">
-    	$.ajax({
-    			url: Constants.serverPath + "travel/getalltravel.do",
-                data: {
-                 		
-                },
-                async:false,
-                dataType: "json",
-                type: "POST",
-                success: function(resultData) {
-                    if (!resultData.successful) {
-                        var errorMsg = resultData.errorMsg;
-                        alert(errorMsg.message);
-                        
-                        return;
-                    }  
-                    console.log(resultData);
-                    travelList = resultData.data;
-                    console.log(travelList);
-                    console.log(travelList[0]);     
-                },
-                error: function() {
-                   alert("get travel list error");
-                }		
-    	});
+    $.ajax({
+		url: Constants.serverPath + "user/getalluser.do",
+        data: {
+         		
+        },
+        async:false,
+        dataType: "json",
+        type: "POST",
+        success: function(resultData) {
+        	console.log(resultData);
+        	// alert(resultData);
+            if (!resultData.successful) {
+                var errorMsg = resultData.errorMsg;
+                alert(errorMsg.message);
+                return;
+            }
+            
+            userList = resultData.data;
+            console.log(userList);
+            console.log(userList[0]);        
+        },
+        error: function() {
+           alert("get user list error");
+        }		
+	});
     </script>
-    
     <script type="text/javascript">
     	$(document).ready(
     		function(){
-    		var busType;
-            var volume;
-    		for(var i=1; i<=travelList.length; i ++){
-	    		if(travelList[i-1].type == 1){
-	            	busType = "小巴";
-	            	volume = 40;
-	            }else if(travelList[i-1].type == 2){
-	            	busType = "中巴";
-	            	volume = 50;
-	            }else if(travelList[i-1].type == 3){
-	            	busType = "大巴";
-	            	volume = 60;
+    		var userType;
+    		for(var i=1; i<=userList.length; i ++){
+	    		if(userList[i-1].type == 0){
+	            	userType = "管理员";
+	            }else if(userList[i-1].type == 1){
+	            	userType = "普通用户";
 	            }
-	            
-    			$("#table-head").after("<tr><td>" + travelList[i - 1].id + travelList[i-1].ticketId + "</td><td>" + travelList[i - 1].start + "</td><td>" + travelList[i - 1].terminal + "</td><td>" + travelList[i - 1].startTime + "</td><td>" + travelList[i - 1].endTime + "</td><td>"  + travelList[i-1].plate + "</td><td>" + busType + "</td><td>" + travelList[i - 1].price + "</td><td>" + volume +"</td><td>" + travelList[i - 1].volumeLeft + "</td><td><div class=\"btn-group\"><a id=\"" + (i-1) + "\" class=\"btn btn-primary edit\"><i class=\"icon_pencil-edit_alt\"></i></a><a id=\"" + (i - 1) + "\"class=\"btn btn-danger delete\"><i class=\"icon_close_alt2\"></i></a></div></td></tr>"
-
-    			);
-    			
-    			}
+    			$("#table-head").after("<tr><td>" + userList[i - 1].id + "</td><td>" + userList[i-1].name + "</td><td>" + userList[i-1].idCard + "</td><td>" + userList[i-1].phone + "</td><td>" + userList[i-1].password + "</td><td>" + userType + "</td><td><div class=\"btn-group\"><a id=\"" + (i-1) + "\" class=\"btn btn-primary edit\"><i class=\"icon_pencil-edit_alt\"></i></a><a id=\"" + (i - 1) + "\"class=\"btn btn-danger delete\"><i class=\"icon_close_alt2\"></i></a></div></td></tr>"
+    			);}
     		}
     	);
     </script>
+    
     
 </head>
 
@@ -124,7 +115,7 @@
                 <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
             </div>
             <!--logo start-->
-            <a href="index.jsp" class="logo">Chur<span>chile</span> <span class="lite">车起来</span></a>
+            <a href="index.html" class="logo">Chur<span>chile</span> <span class="lite">车起来</span></a>
             <!--logo end-->
             <div class="nav search-row" id="top_menu">
                 <!--  search form start -->
@@ -386,7 +377,7 @@
                           <span>控制台</span>
                       </a>
                     </li>
-                    <li class="sub-menu active">
+                    <li class="sub-menu">
                         <a href="javascript:;" class="">
                           <i class="icon_documents_alt"></i>
                           <span>车票管理</span>
@@ -395,7 +386,7 @@
                         <ul class="sub">
                             <li><a class="" href="bus-list.jsp">汽车列表</a></li>
                             <li><a class="" href="add-bus.jsp">添加汽车</a></li>
-                            <li><a class="active" href="ticket-list.jsp"><span>车票列表</span></a></li>
+                            <li><a class="" href="ticket-list.jsp"><span>车票列表</span></a></li>
                             <li><a class="" href="add-ticket.jsp"><span>添加车票</span></a></li>
                         </ul>
                     </li>
@@ -409,14 +400,14 @@
                             <li><a class="" href="order-list.jsp">订单列表</a></li>
                         </ul>
                     </li>
-                    <li class="sub-menu">
+                    <li class="sub-menu active">
                         <a href="javascript:;" class="">
                           <i class="icon_easel"></i>
                           <span>用户管理</span>
                           <span class="menu-arrow arrow_carrot-right"></span>
                         </a>
                         <ul class="sub">
-                            <li><a class="" href="user-list.jsp">用户列表</a></li>
+                            <li><a class="active" href="user-list.jsp">用户列表</a></li>
                             <li><a class="" href="add-user.jsp">添加用户</a></li>
                         </ul>
                     </li>
@@ -433,34 +424,29 @@
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                	车票列表
+                                	用户列表
                             </header>
                             <table class="table table-striped table-advance table-hover">
                                 <tbody>
                                     <tr id="table-head">
-                                    	<th><i class="icon_ol"></i> #</th>
-                                    	<th><i class="icon_id_alt"></i> 出发地</th>
-                                    	<th><i class="icon_id_alt"></i> 目的地</th>
-                                    	<th><i class="icon_id_alt"></i> 出发时间</th>
-                                    	<th><i class="icon_id_alt"></i> 到达时间</th>
-                                        <th><i class="icon_id_alt"></i> 车牌</th>
-                                        <th><i class="icon_toolbox"></i> 类型</th>
-                                        <th><i class="icon_percent"></i> 票价</th>
-                                        <th><i class="icon_percent"></i> 车票数</th>
-                                        <th><i class="icon_id_alt"></i> 剩余量</th>
+                                    	<th ><i class="icon_ol"></i> #</th>
+                                    	<th><i class="icon_id_alt"></i> 用户名</th>
+                                    	<th><i class="icon_id_alt"></i> 身份证号</th>
+                                    	<th><i class="icon_id_alt"></i> 手机号码</th>
+                                    	<th><i class="icon_id_alt"></i> 密码</th>
+                                        <th><i class="icon_id_alt"></i> 用户类型</th>
+                                        
                                         <th><i class="icon_cogs"></i> 操作</th>
                                     </tr>
                                     <!-- 
                                     <tr>
-                                    	<td>1</td>
-                                    	<td>1</td>
-                                    	<td>1</td>
-                                    	<td>1</td>
-                                    	<td>1</td>
-                                        <td>23123</td>
-                                        <td>23123</td>
-                                        <td>23123</td>
-                                        <td>small</td>
+                                    	
+                                        
+                                        <td>1</td>
+                                        <td>middle</td>
+                                        <td>middle</td>
+                                        <td>middle</td>
+                                        <td>middle</td>
                                         <td>60</td>
                                         <td>
                                             <div class="btn-group">
@@ -469,8 +455,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                  -->
-                                  
+                                   -->
                                 </tbody>
                             </table>
                         </section>
@@ -481,61 +466,40 @@
                     <form class="modal-content animate form-horizontal">
                         <div class="imgcontainer">
                             <span onclick="document.getElementById('form-edit').style.display='none'" class="close" title="Close PopUp">&times;</span>
-                            <h1 style="text-align:center; font-family: Microsoft YaHei UI">修改车票信息</h1>
+                            <h1 style="text-align:center; font-family: Microsoft YaHei UI">修改用户信息</h1>
                         </div>
                         <div class="container">
                             <div class="form-group">
-                            	<label for="start" class="col-sm-2 control-label"> 出发地</label>
+                            	<label for="name" class="col-sm-2 control-label"> 用户名</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="start" placeholder="请选择出发地">
-                                </div>
-                           </div>
-                           <div class="form-group">
-                                <label for="terminal" class="col-sm-2 control-label"> 目的地</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="terminal" placeholder="请选择目的地">
-                                </div>
-                          	</div>
-                          	<div class="form-group">
-                                <label for="start-time" class="col-sm-2 control-label"> 出发时间</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="start-time" placeholder="请选择出发时间">
+                                    <input type="text" class="form-control" id="name" placeholder="请输入用户名">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="end-time" class="col-sm-2 control-label"> 到达时间</label>
+                                <label for="id-card" class="col-sm-2 control-label"> 身份证号</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="end-time" placeholder="请选择到达时间">
+                                    <input type="text" class="form-control" id="id-card" placeholder="请输入身份证号">
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="plate" class="col-sm-2 control-label"> 车牌</label>
+                         	</div>
+                         	<div class="form-group">
+                                <label for="phone" class="col-sm-2 control-label"> 手机号码</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="plate" placeholder="请输入车牌号码">
+                                    <input type="text" class="form-control" id="phone" placeholder="请输入手机号码">
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="type" class="col-sm-2 control-label"> 类型</label>
+                         	</div>
+                         	<div class="form-group">
+                                <label for="password" class="col-sm-2 control-label"> 密码</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="type" placeholder="请输入汽车类型">
+                                    <input type="text" class="form-control" id="password" placeholder="请输入密码">
                                 </div>
                            	</div>
                            	<div class="form-group">
-                                <label for="price" class="col-sm-2 control-label"> 票价</label>
+                                <label for="type" class="col-sm-2 control-label"> 用户类型</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="price" placeholder="请输入票价">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="volume" class="col-sm-2 control-label"> 车票数</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="volume" placeholder="请输入车票数量">
-                                </div>
-                           </div>
-                           <div class="form-group">
-                                <label for="volume-left" class="col-sm-2 control-label"> 剩余量</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="volume-left" placeholder="请输入剩余量">
+                                    <select id="type" class="form-control">
+                                    	<option value="0" selected>管理员</option>
+                                    	<option value="1">普通用户</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -628,36 +592,32 @@
     <script type="text/javascript">
     $(document).ready(function() {
         $(".edit").click(function() {
-            document.getElementById('form-edit').style.display = 'block'
+            document.getElementById('form-edit').style.display = 'block';
+            
             index = this.id;
-            $("#start").val(travelList[index].start);
-            $("#terminal").val(travelList[index].terminal);
-            $("#start-time").val(travelList[index].startTime);
-            $("#end-time").val(travelList[index].endTime);
-            $("#price").val(travelList[index].price);
-            $("#plate").val(travelList[index].plate);
-            $("#type").val(travelList[index].type);
-            $("#volume").val(travelList[index].volume);
-            $("#volume-left").val(travelList[index].volumeLeft);
+            $("#name").val(userList[index].name);
+            $("#id-card").val(userList[index].idCard);
+            $("#phone").val(userList[index].phone);
+            $("#password").val(userList[index].password);
+            $("#type").val(userList[index].type);
+            
         });
         $(".delete").click(function() {
+        	index = this.id;
             document.getElementById('form-delete').style.display = 'block'
-            index = this.id;
         });
         $("#form-edit #confirm").click(function() {
         	
         	$.ajax({
-    			url: Constants.serverPath + "travel/updatetravel.do",
+    			url: Constants.serverPath + "user/updateuser.do",
                 data: {
-                 	"id" : travelList[index].id,
-                 	"start" : $("#start").val(),
-                 	"terminal" : $("#terminal").val(),
-                 	"startTime" : $("#start-time").val(),
-                 	"endTime" : $("#end-time").val(),
-                 	"price" : $("#price").val(),
-                 	"volume" : $("#volume").val(),
-                 	"volumeLeft" : $("#volume-left").val(),
-                 	"ticketId" : travelList[index].ticketId
+                 	"id" : userList[index].id,
+                 	"name" : $("#name").val(),
+                 	"idCard" : $("#id-card").val(),
+                 	"phone" : $("#phone").val(),
+                 	"password" : $("#password").val(),
+                 	"type" : $("#type").val(),
+                 	 	
                 },
                 async:false,
                 dataType: "json",
@@ -666,18 +626,39 @@
                     if (!resultData.successful) {
                         var errorMsg = resultData.errorMsg;
                         alert(errorMsg.message);
+                        
                         return;
-                    }    
+                    }   
                 },
                 error: function() {
-                   alert("update travel error");
-                }
+                   alert("update user error");
+                }	
             });
-            //location.reload();
-        	
-            document.getElementById('form-edit').style.display = 'none'
+        	location.reload();
+            document.getElementById('form-edit').style.display = 'none'	
         });
         $("#form-delete #confirm").click(function() {
+        	$.ajax({
+    			url: Constants.serverPath + "user/deleteuser.do",
+                data: {
+                 	"id" : userList[index].id
+		           },
+                async:false,
+                dataType: "json",
+                type: "POST",
+                success: function(resultData) {
+                    if (!resultData.successful) {
+                        var errorMsg = resultData.errorMsg;
+                        alert(errorMsg.message);
+                        
+                        return;
+                    }   
+                },
+                error: function() {
+                   alert("delete user error");
+                }	
+            });
+        	location.reload();
             document.getElementById('form-delete').style.display = 'none'
         });
         $("#form-edit #cancel").click(function() {

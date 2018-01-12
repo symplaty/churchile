@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yep.churchile.dao.BusDao">
+	<select id="getBusById" parameterType="int"
+		resultType="com.yep.churchile.model.Bus">
+		select * from bus where id = #{id} and state = 1
+	</select>
+	
+	<select id="getAllBus" 
+		resultType="com.yep.churchile.model.Bus">
+		select * from bus where state = 1
+	</select>
+	
+	<update id="updateBus" >
+		update bus
+		set bus.plate= #{plate}, 
+			bus.type = #{type}
+		where bus.id = #{id};
+	</update>
+	
+	<delete id="deleteBusById">
+		update bus set state = 0 where id = #{id};
+	</delete>
+	
+	<insert id="addBus">
+		insert into bus  (plate, type, state) values (#{plate}, #{type}, 1);
+	</insert>
+	
+	
+	
+</mapper>

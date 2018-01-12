@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ page language="java" contentType="textml; charset=UTF-8"
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%
 	String path = request.getContextPath();
 	String serverPort = "";
@@ -14,7 +14,7 @@
 	pageContext.setAttribute("basePath", basePath);
 	pageContext.setAttribute("serverPath", serverPath);
 %>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 
 <head>
@@ -24,7 +24,7 @@
     <meta name="author" content="GeeksLabs">
     <meta name="keyword" content="Karmanta, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
     <link rel="shortcut icon" href="img/favicon.png">
-    <title>车票列表 | Churchile - 车起来后台管理</title>
+    <title>汽车列表 | Churchile - 车起来后台管理</title>
     <!-- Bootstrap CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- bootstrap theme -->
@@ -56,14 +56,13 @@
             basePath: "${basePath}"
         };
     </script>
-      <script type="text/javascript">
-    	var travelList;
-    	var index;
+    <script type="text/javascript">
+    	var busList;
     </script>
     
     <script type="text/javascript">
     	$.ajax({
-    			url: Constants.serverPath + "travel/getalltravel.do",
+    			url: Constants.serverPath + "bus/getallbus.do",
                 data: {
                  		
                 },
@@ -71,48 +70,28 @@
                 dataType: "json",
                 type: "POST",
                 success: function(resultData) {
+                	console.log(resultData);
+                	// alert(resultData);
                     if (!resultData.successful) {
                         var errorMsg = resultData.errorMsg;
                         alert(errorMsg.message);
                         
                         return;
-                    }  
-                    console.log(resultData);
-                    travelList = resultData.data;
-                    console.log(travelList);
-                    console.log(travelList[0]);     
+                    }
+                    
+                    busList = resultData.data;
+                    console.log(busList);
+                    console.log(busList[0]);
+                    
+                    
+                    
                 },
                 error: function() {
-                   alert("get travel list error");
+                   alert("system error");
                 }		
     	});
     </script>
     
-    <script type="text/javascript">
-    	$(document).ready(
-    		function(){
-    		var busType;
-            var volume;
-    		for(var i=1; i<=travelList.length; i ++){
-	    		if(travelList[i-1].type == 1){
-	            	busType = "小巴";
-	            	volume = 40;
-	            }else if(travelList[i-1].type == 2){
-	            	busType = "中巴";
-	            	volume = 50;
-	            }else if(travelList[i-1].type == 3){
-	            	busType = "大巴";
-	            	volume = 60;
-	            }
-	            
-    			$("#table-head").after("<tr><td>" + travelList[i - 1].id + travelList[i-1].ticketId + "</td><td>" + travelList[i - 1].start + "</td><td>" + travelList[i - 1].terminal + "</td><td>" + travelList[i - 1].startTime + "</td><td>" + travelList[i - 1].endTime + "</td><td>"  + travelList[i-1].plate + "</td><td>" + busType + "</td><td>" + travelList[i - 1].price + "</td><td>" + volume +"</td><td>" + travelList[i - 1].volumeLeft + "</td><td><div class=\"btn-group\"><a id=\"" + (i-1) + "\" class=\"btn btn-primary edit\"><i class=\"icon_pencil-edit_alt\"></i></a><a id=\"" + (i - 1) + "\"class=\"btn btn-danger delete\"><i class=\"icon_close_alt2\"></i></a></div></td></tr>"
-
-    			);
-    			
-    			}
-    		}
-    	);
-    </script>
     
 </head>
 
@@ -121,10 +100,11 @@
     <section id="container" class="">
         <header class="header white-bg">
             <div class="toggle-nav">
+            
                 <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"></div>
             </div>
             <!--logo start-->
-            <a href="index.jsp" class="logo">Chur<span>chile</span> <span class="lite">车起来</span></a>
+            <a href="index.html" class="logo">Chur<span>chile</span> <span class="lite">车起来</span></a>
             <!--logo end-->
             <div class="nav search-row" id="top_menu">
                 <!--  search form start -->
@@ -395,8 +375,8 @@
                         <ul class="sub">
                             <li><a class="" href="bus-list.jsp">汽车列表</a></li>
                             <li><a class="" href="add-bus.jsp">添加汽车</a></li>
-                            <li><a class="active" href="ticket-list.jsp"><span>车票列表</span></a></li>
-                            <li><a class="" href="add-ticket.jsp"><span>添加车票</span></a></li>
+                            <li><a class="" href="ticket-list.jsp"><span>车票列表</span></a></li>
+                            <li><a class="active" href="add-ticket.jsp"><span>添加车票</span></a></li>
                         </ul>
                     </li>
                     <li class="sub-menu">
@@ -409,7 +389,7 @@
                             <li><a class="" href="order-list.jsp">订单列表</a></li>
                         </ul>
                     </li>
-                    <li class="sub-menu">
+                    <li class="sub-menu ">
                         <a href="javascript:;" class="">
                           <i class="icon_easel"></i>
                           <span>用户管理</span>
@@ -433,121 +413,77 @@
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                	车票列表
+                                	添加车票
                             </header>
-                            <table class="table table-striped table-advance table-hover">
-                                <tbody>
-                                    <tr id="table-head">
-                                    	<th><i class="icon_ol"></i> #</th>
-                                    	<th><i class="icon_id_alt"></i> 出发地</th>
-                                    	<th><i class="icon_id_alt"></i> 目的地</th>
-                                    	<th><i class="icon_id_alt"></i> 出发时间</th>
-                                    	<th><i class="icon_id_alt"></i> 到达时间</th>
-                                        <th><i class="icon_id_alt"></i> 车牌</th>
-                                        <th><i class="icon_toolbox"></i> 类型</th>
-                                        <th><i class="icon_percent"></i> 票价</th>
-                                        <th><i class="icon_percent"></i> 车票数</th>
-                                        <th><i class="icon_id_alt"></i> 剩余量</th>
-                                        <th><i class="icon_cogs"></i> 操作</th>
-                                    </tr>
-                                    <!-- 
-                                    <tr>
-                                    	<td>1</td>
-                                    	<td>1</td>
-                                    	<td>1</td>
-                                    	<td>1</td>
-                                    	<td>1</td>
-                                        <td>23123</td>
-                                        <td>23123</td>
-                                        <td>23123</td>
-                                        <td>small</td>
-                                        <td>60</td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a class="btn btn-primary edit"><i class="icon_pencil-edit_alt"></i></a>
-                                                <a class="btn btn-danger delete"><i class="icon_close_alt2"></i></a>
+                            <div class="panel-body">
+                                <div class="form">
+                                    <form class="form-validate form-horizontal" id="add-ticket">
+                                        <div class="form-group ">
+                                            <label for="start" class="control-label col-lg-2">出发地  <span class="required">*</span></label>
+                                            <div class="col-lg-10">
+                                                <input class="form-control" id="start" name="start" minlength="4" type="text" required />
                                             </div>
-                                        </td>
-                                    </tr>
-                                  -->
-                                  
-                                </tbody>
-                            </table>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label for="terminal" class="control-label col-lg-2">目的地  <span class="required">*</span></label>
+                                            <div class="col-lg-10">
+                                                <input class="form-control " id="terminal" type="text" name="terminal" required />
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="form-group ">
+                                            <label for="start-time" class="control-label col-lg-2">出发时间  <span class="required">*</span></label>
+                                            <div class="col-lg-10">
+                                                <input class="form-control" id="start-time" name="start-time" minlength="5" maxlength="16" type="text" required />
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label for="end-time" class="control-label col-lg-2">到达时间  <span class="required">*</span></label>
+                                            <div class="col-lg-10">
+                                                <input class="form-control" id="end-time" name="end-time" minlength="5" maxlength="16" type="text" required />
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label for="plate" class="control-label col-lg-2">车牌  <span class="required">*</span></label>
+                                            <div class="col-lg-10">
+                                                <input class="form-control" id="plate" name="plate" minlength="4" maxlength="8" type="text" required />
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label for="type" class="control-label col-lg-2">类型 <span class="required">*</span></label>
+                                            <div class="col-lg-10">
+                                                <select id="type" class="form-control m-bot15 col-md-10">
+                                                	<option value="1" selected>小巴</option>
+                                                	<option value="2">中巴</option>
+                                                	<option value="3">大巴</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label for="price" class="control-label col-lg-2">票价  <span class="required">*</span></label>
+                                            <div class="col-lg-10">
+                                                <input class="form-control" id="price" name="price" minlength="1" maxlength="6" type="text" required />
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label for="volume" class="control-label col-lg-2">车票数  <span class="required">*</span></label>
+                                            <div class="col-lg-10">
+                                                <input class="form-control" id="volume" name="volume" minlength="1" maxlength="3" type="text" required />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-2 col-lg-10">
+                                                <button class="btn btn-primary" type="button" id="confirm">添加车票</button>
+                                                <button class="btn btn-default" type="button" id="cancel">取消</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </section>
                     </div>
                 </div>
-                <!-- pop up div -->
-                <div id="form-edit" class="modal">
-                    <form class="modal-content animate form-horizontal">
-                        <div class="imgcontainer">
-                            <span onclick="document.getElementById('form-edit').style.display='none'" class="close" title="Close PopUp">&times;</span>
-                            <h1 style="text-align:center; font-family: Microsoft YaHei UI">修改车票信息</h1>
-                        </div>
-                        <div class="container">
-                            <div class="form-group">
-                            	<label for="start" class="col-sm-2 control-label"> 出发地</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="start" placeholder="请选择出发地">
-                                </div>
-                           </div>
-                           <div class="form-group">
-                                <label for="terminal" class="col-sm-2 control-label"> 目的地</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="terminal" placeholder="请选择目的地">
-                                </div>
-                          	</div>
-                          	<div class="form-group">
-                                <label for="start-time" class="col-sm-2 control-label"> 出发时间</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="start-time" placeholder="请选择出发时间">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="end-time" class="col-sm-2 control-label"> 到达时间</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="end-time" placeholder="请选择到达时间">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="plate" class="col-sm-2 control-label"> 车牌</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="plate" placeholder="请输入车牌号码">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="type" class="col-sm-2 control-label"> 类型</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="type" placeholder="请输入汽车类型">
-                                </div>
-                           	</div>
-                           	<div class="form-group">
-                                <label for="price" class="col-sm-2 control-label"> 票价</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="price" placeholder="请输入票价">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="volume" class="col-sm-2 control-label"> 车票数</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="volume" placeholder="请输入车票数量">
-                                </div>
-                           </div>
-                           <div class="form-group">
-                                <label for="volume-left" class="col-sm-2 control-label"> 剩余量</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="volume-left" placeholder="请输入剩余量">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-5 col-sm-10">
-                                    <button type="button" class="btn btn-primary" id="confirm">确认</button>
-                                    <button type="button" class="btn btn-default" id="cancel">取消</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
+                
                 <div id="form-delete" class="modal">
                     <form class="modal-content animate form-horizontal">
                     	<div class="imgcontainer">
@@ -627,54 +563,8 @@
     <!-- pop up div -->
     <script type="text/javascript">
     $(document).ready(function() {
-        $(".edit").click(function() {
-            document.getElementById('form-edit').style.display = 'block'
-            index = this.id;
-            $("#start").val(travelList[index].start);
-            $("#terminal").val(travelList[index].terminal);
-            $("#start-time").val(travelList[index].startTime);
-            $("#end-time").val(travelList[index].endTime);
-            $("#price").val(travelList[index].price);
-            $("#plate").val(travelList[index].plate);
-            $("#type").val(travelList[index].type);
-            $("#volume").val(travelList[index].volume);
-            $("#volume-left").val(travelList[index].volumeLeft);
-        });
-        $(".delete").click(function() {
-            document.getElementById('form-delete').style.display = 'block'
-            index = this.id;
-        });
+        
         $("#form-edit #confirm").click(function() {
-        	
-        	$.ajax({
-    			url: Constants.serverPath + "travel/updatetravel.do",
-                data: {
-                 	"id" : travelList[index].id,
-                 	"start" : $("#start").val(),
-                 	"terminal" : $("#terminal").val(),
-                 	"startTime" : $("#start-time").val(),
-                 	"endTime" : $("#end-time").val(),
-                 	"price" : $("#price").val(),
-                 	"volume" : $("#volume").val(),
-                 	"volumeLeft" : $("#volume-left").val(),
-                 	"ticketId" : travelList[index].ticketId
-                },
-                async:false,
-                dataType: "json",
-                type: "POST",
-                success: function(resultData) {
-                    if (!resultData.successful) {
-                        var errorMsg = resultData.errorMsg;
-                        alert(errorMsg.message);
-                        return;
-                    }    
-                },
-                error: function() {
-                   alert("update travel error");
-                }
-            });
-            //location.reload();
-        	
             document.getElementById('form-edit').style.display = 'none'
         });
         $("#form-delete #confirm").click(function() {

@@ -52,7 +52,19 @@ public class User {
 		this.state = state;
 	}
 
+	public User(){}
 
+	public User(int id, String name, String idCard, String phone, String password, int type, int state) {
+		this.id = id;
+		this.name = name;
+		this.idCard = idCard;
+		this.phone = phone;
+		this.password = password;
+		this.type = type;
+		this.state = state;
+	}
+	
+	
 	public String toString() {
         return "User [id=" + id + ", userName=" + name + ", idCard=" + idCard + "]";
     } 

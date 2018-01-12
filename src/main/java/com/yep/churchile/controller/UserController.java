@@ -1,6 +1,7 @@
 package com.yep.churchile.controller;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -31,18 +32,81 @@ public class UserController extends BaseController {
 	
 	@ResponseBody
 	@RequestMapping("/getuser")
-	public ResultData<User> getUserById(){
+	public ResultData<User> getUserById(int id){
 		try{
-			ResultData<User> user = userService.getUserById(614161258);
+			ResultData<User> user = userService.getUserById(id);
 			if(!user.isSuccessful()){
 				
 			} 
 			return user;
 		}catch(Exception e){
-			e.printStackTrace();
-			return null;
+			LOGGER.error("获取该用户异常", e);
+			return ResultData.error(ResultData.EXCEPTION);
 		}
 	} 
+	
+	@ResponseBody
+	@RequestMapping("/getalluser")
+	public ResultData<List<User>> getAllUser(){
+		try {
+			ResultData<List<User>> userList = userService.getAllUser();
+			if(!userList.isSuccessful()){
+				
+			}
+			LOGGER.info("User", userList);
+			getSession().setAttribute("userList", userList);
+			return userList;
+		} catch (Exception e) {
+			// TODO: handle exception
+			LOGGER.error("获取所有用户异常", e);
+			return ResultData.error(ResultData.EXCEPTION);
+		}
+		
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/updateuser")
+	public ResultData<Integer> updateUser(User user){
+		try {
+			LOGGER.info("Update User Start", user.getId());
+			return userService.updateUser(user);
+		} catch (Exception e) {
+			// TODO: handle exception
+			LOGGER.error("更新用户异常", e);
+			return ResultData.error(ResultData.EXCEPTION);
+		}
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping("/deleteuser")
+	public ResultData<Integer> deleteUserById(Integer id){
+		try {
+			LOGGER.info("Delete User Start", id);
+			return userService.deleteUserById(id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			LOGGER.error("删除用户异常", e);
+			return ResultData.error(ResultData.EXCEPTION);
+		}
+		
+	}
+	@ResponseBody
+	@RequestMapping("/adduser")
+	public ResultData<Integer> addUser(User user){
+		try {
+			LOGGER.info("Add User Start", user.getId());
+			return userService.addUser(user);
+		} catch (Exception e) {
+			// TODO: handle exception
+			LOGGER.error("添加用户异常", e);
+			return ResultData.error(ResultData.EXCEPTION);
+		}
+		
+	}
+	
+	
 	
 	@ResponseBody
 	@RequestMapping("/login")

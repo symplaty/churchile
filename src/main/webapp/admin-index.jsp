@@ -341,7 +341,9 @@
                         </a>
                         <ul class="sub">
                             <li><a class="" href="bus-list.jsp">汽车列表</a></li>
+                            <li><a class="" href="add-bus.jsp">添加汽车</a></li>
                             <li><a class="" href="ticket-list.jsp"><span>车票列表</span></a></li>
+                            <li><a class="" href="add-ticket.jsp"><span>添加车票</span></a></li>
                         </ul>
                     </li>
                     <li class="sub-menu">
@@ -352,7 +354,6 @@
                         </a>
                         <ul class="sub">
                             <li><a class="" href="order-list.jsp">订单列表</a></li>
-                            
                         </ul>
                     </li>
                     <li class="sub-menu">
@@ -363,7 +364,7 @@
                         </a>
                         <ul class="sub">
                             <li><a class="" href="user-list.jsp">用户列表</a></li>
-                            
+                            <li><a class="" href="add-user.jsp">添加用户</a></li>
                         </ul>
                     </li>
                 </ul>

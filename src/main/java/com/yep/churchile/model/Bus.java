@@ -30,6 +30,13 @@ public class Bus {
 	public void setState(int state) {
 		this.state = state;
 	}
+	public Bus(){}
+	public Bus(int id, String plate, int type, int state) {
+		this.id = id;
+		this.plate = plate;
+		this.type = type;
+		this.state = state;
+	}
 	
 	
 
